@@ -1,0 +1,32 @@
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: frontend-ingress
+#   namespace: production
+#   annotations:
+#     kubernetes.io/ingress.class: "nginx"
+
+#     # Redirect HTTP → HTTPS
+#     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+
+#     # Optional: custom body size or timeouts
+#     nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+#     nginx.ingress.kubernetes.io/proxy-read-timeout: "30"
+
+# spec:
+#   tls:
+#   - hosts:
+#     - flebix.com
+#     secretName: flebix-tls-cert   # created using cert-manager or manually
+
+#   rules:
+#   - host: flebix.com
+#     http:
+#       paths:
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: frontend
+#             port:
+#               number: 80

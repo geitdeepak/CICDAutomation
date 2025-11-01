@@ -1,0 +1,19 @@
+# backend-service.yaml
+# Internal ClusterIP service for backend API
+# Accessed by frontend via internal ALB at api.flebix.com
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+  namespace: production
+  labels:
+    app: backend
+spec:
+  type: ClusterIP           # Internal service
+  ports:
+  - port: 80
+    targetPort: 3000        # Backend listens on 3000, service exposes on 80
+    protocol: TCP
+    name: http
+  selector:
+    app: backend

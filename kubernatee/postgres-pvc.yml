@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postgres-pv
+  namespace: production
+spec:
+  capacity:
+    storage: 20Gi
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: manual         # static binding (no dynamic provisioning)
+  persistentVolumeReclaimPolicy: Retain  # EBS stays even if cluster deleted
+  awsElasticBlockStore:
+    volumeID: vol-0f1389f89be1a053a  # <-- replace with your Terraform volume ID
+    fsType: ext4
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pvc
+  namespace: production
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: manual
+  resources:
+    requests:
+      storage: 20Gi

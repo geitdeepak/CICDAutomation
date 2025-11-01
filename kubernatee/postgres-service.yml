@@ -1,0 +1,19 @@
+# postgres-service.yaml
+# Creates internal ClusterIP service for PostgreSQL
+# Only accessible within the cluster (backend can connect via 'postgres:5432')
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: production
+  labels:
+    app: postgres
+spec:
+  type: ClusterIP           # Internal service, not exposed outside cluster
+  ports:
+  - port: 5432
+    targetPort: 5432
+    protocol: TCP
+    name: postgres
+  selector:
+    app: postgres           # Routes traffic to pods with this label

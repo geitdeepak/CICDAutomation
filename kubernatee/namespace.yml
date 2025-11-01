@@ -1,0 +1,10 @@
+# namespace.yaml
+# Creates an isolated namespace for production environment
+# This separates production resources from other environments (dev, staging)
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: production
+  labels:
+    name: production
+    environment: prod

@@ -1,0 +1,24 @@
+# configmaps.yaml
+# Stores non-sensitive configuration data for backend application
+# These values are injected as environment variables into containers
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: backend-config
+  namespace: production
+data:
+  
+  # Application settings
+  JWT_EXPIRES_IN: "1d"         # JWT token expiration time
+  NODE_ENV: "production"
+  PORT: "3000"                  # Backend listens on port 3000
+---
+# ConfigMap for frontend environment variables
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-config
+  namespace: production
+data:
+  # Backend API endpoint that frontend will call
+  VITE_API_URL: "https://api.flebix.com"

@@ -1,0 +1,20 @@
+# frontend-service.yaml
+# Internal ClusterIP service for frontend
+# Accessed publicly via internet-facing ALB at flebix.com
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  namespace: production
+  labels:
+    app: frontend
+spec:
+  type: NodePort          
+  ports:
+  - port: 5173
+    targetPort: 5173
+    protocol: TCP
+    nodePort: 31000
+    name: http
+  selector:
+    app: frontend

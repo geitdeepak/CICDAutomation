@@ -1,0 +1,39 @@
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: backend-ingress
+#   namespace: production
+#   labels:
+#     app: backend
+#   annotations:
+#     kubernetes.io/ingress.class: "nginx"
+
+#     # Redirect HTTP → HTTPS
+#     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+
+#     # Optional: custom proxy limits & timeouts
+#     nginx.ingress.kubernetes.io/proxy-body-size: "20m"
+#     nginx.ingress.kubernetes.io/proxy-read-timeout: "30"
+#     nginx.ingress.kubernetes.io/proxy-send-timeout: "30"
+
+#     # Optional: Restrict access to internal network (example CIDR)
+#     # Uncomment if you want backend API private to your VPC
+#     # nginx.ingress.kubernetes.io/whitelist-source-range: "10.0.0.0/8,192.168.0.0/16"
+
+# spec:
+#   tls:
+#   - hosts:
+#     - api.flebix.com
+#     secretName: api-flebix-tls-cert  # Create this secret manually or via cert-manager
+
+#   rules:
+#   - host: api.flebix.com
+#     http:
+#       paths:
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: backend
+#             port:
+#               number: 80

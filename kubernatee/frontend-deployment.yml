@@ -1,0 +1,75 @@
+# frontend-deployment.yaml
+# Deploys React (Vite) frontend application
+# Serves static files via nginx
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: production
+  labels:
+    app: frontend
+    tier: web
+spec:
+  replicas: 2              # Run 2 replicas for HA and load distribution
+  
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  
+  selector:
+    matchLabels:
+      app: frontend
+  
+  template:
+    metadata:
+      labels:
+        app: frontend
+        tier: web
+    spec:
+      containers:
+      - name: frontend
+        # Replace with your actual frontend image
+        # For Vite, build with 'npm run build' and serve 'dist' folder via nginx
+        image: dsumanta/ai-frontend:latest
+        imagePullPolicy: Always
+        
+        ports:
+        - containerPort: 5173
+          name: http
+          protocol: TCP
+        
+        # Environment variables from ConfigMap (injected at build time or runtime)
+        envFrom:
+        - configMapRef:
+            name: frontend-config
+        
+        # Resource allocation for nginx serving static files
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        
+        # Readiness probe checks nginx is serving content
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 5173
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        
+        # Liveness probe ensures nginx is responsive
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 5173
+          initialDelaySeconds: 15
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
