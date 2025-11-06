@@ -73,7 +73,7 @@ pipeline {
         script {
             emailext(
                 attachLog: true,
-                from: 'dsumanta31946@gmail.com',
+                from: 'geit.deepak@gmail.com',
                 subject: "✅ AI Frontend Application has been updated and deployed",
                 body: """
                     <html>
@@ -114,7 +114,7 @@ pipeline {
                     </body>
                     </html>
                 """,
-                to: 'dsumanta31746@gmail.com',
+                to: 'geit.deepak@gmail.com',
                 mimeType: 'text/html'
             )  // ← Don't forget closing parenthesis!
         }
@@ -135,7 +135,7 @@ pipeline {
                     </body>
                     </html>
                 """,
-                to: 'dsumanta31746@gmail.com',
+                to: 'geit.deepak@gmail.com',
                 mimeType: 'text/html'
             )
         }
