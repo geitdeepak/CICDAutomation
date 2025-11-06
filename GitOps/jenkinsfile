@@ -124,7 +124,7 @@ pipeline {
         script {
             emailext(
                 attachLog: true,
-                from: 'dsumanta31946@gmail.com',
+                from: 'geit.deepak@gmail.com',
                 subject: "❌ AI Frontend Application Deployment FAILED",
                 body: """
                     <html>
